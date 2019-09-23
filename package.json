@@ -36,8 +36,8 @@
   "scripts": {
     "server:dev": "cross-env EGG_SERVER_ENV=local NODE_ENV= egg-bin dev",
     "server:test": "cross-env EGG_SERVER_ENV=test egg-bin dev",
-    "start": "egg-scripts start --daemon --title=egg-server-wx-admin --ignore-stderr",
-    "stop": "egg-scripts stop --title=egg-server-wx-admin --ignore-stderr",
+    "start": "egg-scripts start --daemon --title=egg-server-wx-admin ",
+    "stop": "egg-scripts stop --title=egg-server-wx-admin ",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
