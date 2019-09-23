@@ -4,6 +4,7 @@ const Controller = require('egg').Controller;
 class UserController extends Controller {
   async getUserInfo() {
     const { ctx } = this;
+    console.log(this.app.config.CONST);
     const token = ctx.request.header.authorization;
     const data = await ctx.service.user.get({ token });
     if (data) {

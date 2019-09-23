@@ -16,6 +16,7 @@
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",
     "await-stream-ready": "^1.0.1",
+    "cross-env": "^6.0.0",
     "egg-bin": "^4.11.0",
     "egg-ci": "^1.11.0",
     "egg-mock": "^3.21.0",
@@ -33,9 +34,10 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-init",
-    "stop": "egg-scripts stop --title=egg-server-init",
-    "dev": "egg-bin dev",
+    "server:dev": "cross-env EGG_SERVER_ENV=local NODE_ENV= egg-bin dev",
+    "server:test": "cross-env EGG_SERVER_ENV=test egg-bin dev",
+    "start": "egg-scripts start --daemon --title=egg-server-wx-admin --ignore-stderr",
+    "stop": "egg-scripts stop --title=egg-server-wx-admin --ignore-stderr",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
