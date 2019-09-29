@@ -15,7 +15,7 @@ module.exports = () => {
       // 端口号
       port: '3306',
       // 用户名
-      user: 'wx',
+      user: 'root',
       // 密码
       password: '1234567890',
       // 数据库名
