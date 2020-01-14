@@ -1,3 +1,7 @@
+/**
+ * websocket
+ */
+
 'use strict';
 const Service = require('egg').Service;
 const WebSocket = require('ws');
@@ -19,11 +23,12 @@ class msgWebsocketService extends Service {
       this.ws = ws;
       console.log('WebSocket链接成功');
       this.receive();
-      // 通过 ws 对象，就可以获取到客户端发送过来的信息和主动推送信息给客户端
       let i = 0;
-      times = setInterval(() => {
-        this.send(i++);
-      }, 2000);
+      this.wss.clients.forEach(client => {
+        times = setInterval(() => {
+          client.send(i++);
+        }, 2000);
+      });
     });
     this.wss.on('close', () => {
       console.log('关闭');
@@ -32,14 +37,14 @@ class msgWebsocketService extends Service {
     });
   }
   // 发送
-  async send(message) {
-    this.ws.send(message, err => { // send 方法的第二个参数是一个错误回调函数
-      if (err) {
-        console.log(`[SERVER] error: ${err}`);
-        this.wss.close();
-      }
-    });
-  }
+  // async send(message) {
+  //   this.ws.send(message, err => { // send 方法的第二个参数是一个错误回调函数
+  //     if (err) {
+  //       console.log(`[SERVER] error: ${err}`);
+  //       this.wss.close();
+  //     }
+  //   });
+  // }
   // 接收
   async receive() {
     this.ws.on('message', message => {

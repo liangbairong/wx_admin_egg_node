@@ -2,35 +2,20 @@
 const jwt = require('jsonwebtoken');
 module.exports = () => {
   return async function verLogin(ctx, next) {
-    if (ctx.request.header.authorization) {
-      const token = ctx.request.header.authorization;
-      // let decoded = '';
+    const token = ctx.request.header.authorization;
+    if (token) {
       // 解码token
       try {
-        jwt.verify(token, 'sssss');
-        // console.log(decoded);
+        jwt.verify(token, ctx.app.config.keys);
       } catch (error) {
         if (error.name === 'TokenExpiredError') {
-          console.log('时间到期');
-          ctx.body = {
-            code: 3000,
-            msg: 'token时间到期',
-          };
-          return;
+          ctx.app.throwError(3000, 'token时间到期');
         }
-        ctx.body = {
-          code: 3000,
-          msg: 'token失效',
-        };
-        return;
+        ctx.app.throwError(3000, 'token失效');
       }
       await next();
     } else {
-      ctx.body = {
-        code: 3000,
-        msg: '没有token',
-      };
-      return;
+      ctx.app.throwError(3000, '没有token');
     }
 
   };

@@ -1,23 +1,14 @@
-/* eslint valid-jsdoc: "off" */
 
 'use strict';
 
-/**
- * @param {Egg.EggAppInfo} appInfo app info
- */
 module.exports = appInfo => {
-  /**
-   * built-in config
-   * @type {Egg.EggAppConfig}
-   **/
   const config = exports = {};
-
-  // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1568685835614_3976';
-  // add your middleware config here
   config.middleware = [];
-
-  // add your user config here
+  // 全局常量
+  config.CONST = {
+    ROOT: 'ss',
+  };
   const userConfig = {
     // myAppName: 'egg',
   };
@@ -52,16 +43,16 @@ module.exports = appInfo => {
     },
   };
   // 中间件
-  config.middleware = [ 'accessControl', 'verLogin' ];
-  config.accessControl = {
+  config.middleware = [ 'httpError', 'verLogin' ];
+  config.httpError = {
     match: '/',
   };
   config.verLogin = {
-    match: '/needToken',
+    match: '/need_token',
   };
   // 跨域配置
   config.cors = {
-    origin: [ 'http://localhost:8082' ],
+    origin: [ '*' ],
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
     credentials: true,
   };
