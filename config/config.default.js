@@ -5,6 +5,10 @@ module.exports = appInfo => {
   const config = exports = {};
   config.keys = appInfo.name + '_1568685835614_3976';
   config.middleware = [];
+  // 全局常量
+  config.CONST = {
+    ROOT: 'ss',
+  };
   const userConfig = {
     // myAppName: 'egg',
   };
@@ -39,12 +43,12 @@ module.exports = appInfo => {
     },
   };
   // 中间件
-  config.middleware = [ 'accessControl', 'verLogin' ];
-  config.accessControl = {
+  config.middleware = [ 'httpError', 'verLogin' ];
+  config.httpError = {
     match: '/',
   };
   config.verLogin = {
-    match: '/needToken',
+    match: '/need_token',
   };
   // 跨域配置
   config.cors = {

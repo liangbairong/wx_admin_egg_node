@@ -2,10 +2,11 @@
 const Controller = require('egg').Controller;
 
 class UserController extends Controller {
-  async getUserInfo() {
+  async get() {
     const { ctx } = this;
-    console.log(this.app.config.CONST);
+    console.log(this.app.config.keys);
     const token = ctx.request.header.authorization;
+
     const data = await ctx.service.user.get({ token });
     if (data) {
       ctx.body = {
@@ -23,13 +24,13 @@ class UserController extends Controller {
   }
 
   // 修改用户信息
-  async updateUserInfo() {
+  async update() {
     const { ctx } = this;
     const token = ctx.request.header.authorization;
     const query = this.ctx.request.body;
     if (!query.name) {
       ctx.body = {
-        code: 400,
+        code: 10000,
         data: '',
         msg: 'name不能为空',
       };

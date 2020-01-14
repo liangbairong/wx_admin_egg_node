@@ -1,3 +1,7 @@
+/**
+ * 文件上传
+ */
+
 'use strict';
 
 // node.js 文件操作对象
@@ -15,7 +19,7 @@ const sendToWormhole = require('stream-wormhole');
 const md5 = require('md5');
 
 class UploadController extends Controller {
-  async index() {
+  async head() {
     const ctx = this.ctx;
     // egg-multipart 已经帮我们处理文件二进制对象
     // node.js 和 php 的上传唯一的不同就是 ，php 是转移一个 临时文件

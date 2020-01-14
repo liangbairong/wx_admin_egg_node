@@ -40,7 +40,6 @@ class AppBootHook {
 
   async didReady() {
     // 应用已经启动完毕
-
     const ctx = await this.app.createAnonymousContext();
     await ctx.service.msgWebsocket.start();
   }
