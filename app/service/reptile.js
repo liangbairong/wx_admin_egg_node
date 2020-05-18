@@ -25,6 +25,44 @@ class reptileService extends Service {
     cb && cb();
   }
 
+  // 爬虫获取书籍列表,插入数据库books
+  async getCrawlerBooks(bookUrl) {
+    const { ctx } = this;
+    const result = await ctx.curl(bookUrl);
+    const html = iconv.decode(result.res.data, 'UTF-8');
+    const $ = cheerio.load(html);
+    const arrays = [];
+    const conn = await ctx.app.mysql.beginTransaction(); // 初始化事务
+    await $('#container .item-img').each(async function(index) {
+      console.log(index);
+      const a = $(this).find('a').eq(0);
+      const bookName = $(this).find('h5').text();
+      const url = $(this).find('h5').text();
+      const bookId = nanoid();
+      const obj = {
+        bookId,
+        bookImage: bookUrl + a.find('img').attr('src'),
+        bookUrl: url,
+        // author: $(this).text(),
+        bookName,
+        content: $(this).find('p').text(),
+      };
+      try {
+        const isHas = await conn.select('books', { where: { bookName } });
+        if (isHas.length === 0) {
+          await conn.insert('books', obj); // 第一步操作
+          await this.getDirectory(url, bookId);
+        }
+      } catch (err) {
+        await conn.rollback(); // 一定记得捕获异常后回滚事务！！
+        throw err;
+      }
+      arrays.push(obj);
+    });
+    await conn.commit(); // 提交事务
+    return arrays;
+  }
+
   // 获取
   async getBooks(bookUrl) {
     const { ctx } = this;

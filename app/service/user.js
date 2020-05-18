@@ -9,7 +9,6 @@ class UserService extends Service {
   // 获取信息
   async get(param) {
     const { app } = this;
-    console.log(JSON.stringify(app));
     const user = await app.mysql.get('user', param);
     return user;
   }

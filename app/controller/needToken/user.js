@@ -16,11 +16,7 @@ class UserController extends Controller {
       };
       return;
     }
-    ctx.body = {
-      code: 400,
-      data: '',
-      msg: '用户不存在',
-    };
+    this.app.throwError(400, '用户不存在');
   }
 
   // 修改用户信息
@@ -29,11 +25,7 @@ class UserController extends Controller {
     const token = ctx.request.header.authorization;
     const query = this.ctx.request.body;
     if (!query.name) {
-      ctx.body = {
-        code: 10000,
-        data: '',
-        msg: 'name不能为空',
-      };
+      this.app.throwError(400, 'name不能为空');
       return;
     }
     const result = await ctx.service.user.update({
@@ -49,11 +41,7 @@ class UserController extends Controller {
       };
       return;
     }
-    ctx.body = {
-      code: 400,
-      data: '',
-      msg: '修改失败',
-    };
+    this.app.throwError(400, '修改失败');
   }
 
 }
