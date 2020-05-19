@@ -9,10 +9,11 @@ module.exports = app => {
 
   // 获取数据库的书籍
   router.get('/book/list', controller.book.list);
+  router.get('/book/directory', controller.book.directory); // 数据库目录
 
   // 爬虫搜索
   router.get('/reptileBook/search', controller.reptileBook.search);
   router.post('/reptileBook/addBookList', controller.reptileBook.addBookList); // 添加把书籍添加进数据库
-
+  router.post('/reptileBook/addBookDiretory', controller.reptileBook.addBookDiretory);
   // router.get('/getDirectory', controller.book.getDirectory);
 };

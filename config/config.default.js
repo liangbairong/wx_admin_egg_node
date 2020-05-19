@@ -8,6 +8,13 @@ module.exports = appInfo => {
   // 全局常量
   config.CONST = {
     ROOT: 'ss',
+    UPLOAD_URL: 'http://127.0.0.1:7001',
+    BOOK_SOURCE_MAP: {
+      1: {
+        url: 'https://www.qidian.com',
+        name: '起点',
+      },
+    },
   };
   const userConfig = {
     // myAppName: 'egg',

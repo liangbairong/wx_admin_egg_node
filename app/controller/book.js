@@ -13,7 +13,6 @@ class BookController extends Controller {
     if (bookName) {
       bookNameSql = `where bookName like "%${bookName}%"`;
     }
-
     const list = await app.mysql.query(`select SQL_CALC_FOUND_ROWS * from books ${bookNameSql} limit ${currentPage}, ${limit};`);
     // const z = await app.mysql.query('SELECT FOUND_ROWS() as total;');
     const z = await app.mysql.query('SELECT COUNT(id) as total FROM books;');
@@ -27,6 +26,19 @@ class BookController extends Controller {
     };
   }
   // 获取目录
+  async directory() {
+    const { ctx, app } = this;
+    const bookId = ctx.query.bookId;
+    const list = await app.mysql.select('directory', {
+      where: { bookId }, // WHERE 条件
+    });
+    console.log(list);
+    ctx.body = {
+      code: 200,
+      data: list,
+      msg: '',
+    };
+  }
   async getDirectory() {
     const { ctx } = this;
     const directory = await ctx.service.reptile.getBooks('https://www.23us.la/');
