@@ -8,7 +8,7 @@ const nanoid = require('nanoid');
 
 // 起点
 class ReptileBookController extends Controller {
-  // 爬虫获取书籍列表,插入数据库books
+  // 爬虫获取书籍列表
   async search() {
     const { ctx, app } = this;
 
@@ -65,62 +65,16 @@ class ReptileBookController extends Controller {
       msg: '',
     };
   }
-  // 获取一本书的目录
+  // 更新list数据库的书籍内容
   async addBookDiretory() {
     const { ctx } = this;
     const query = ctx.request.body;
-    const result = await ctx.curl(query.bookSourceUrl);
-    const html = iconv.decode(result.res.data, 'UTF-8');
-    const $ = cheerio.load(html);
-    const arrays = [];
-    const conn = await ctx.app.mysql.beginTransaction(); // 初始化事务
-    await new Promise(succ => {
-      const li = $('.volume-wrap li');
-      (async () => {
-        for (let i = 0; i < li.length; i++) {
-          const bookContentUrl = 'https:' + li.eq(i).find('a').attr('href');
-          const directoryTitle = li.eq(i).find('a').text();
-          const result2 = await ctx.curl(bookContentUrl);
-          const htmlContent = iconv.decode(result2.res.data, 'UTF-8');
-          const $content = cheerio.load(htmlContent);
-          const directoryId = nanoid();
-          const obj = {
-            bookContentUrl,
-            directoryId,
-            bookId: query.bookId,
-            directoryTitle,
-          };
-          const bookConent = {
-            directoryId,
-            bookId: query.bookId,
-            bookContent: $content('.read-content').html(),
-          };
-          arrays.push(obj);
-          console.log(i);
-
-          try {
-            const isHas = await conn.select('directory', { where: { bookContentUrl } });
-            if (isHas.length === 0) {
-              await conn.insert('directory', obj); // 第一步操作
-              await conn.insert('book_conent', bookConent); // 第一步操作
-            }
-          } catch (err) {
-            await conn.rollback(); // 一定记得捕获异常后回滚事务！！
-            throw err;
-          }
-          if (i === li.length - 1) { succ(arrays); }
-        }
-      })();
-    });
-    await conn.commit(); // 提交事务
-
+    ctx.service.reptile.getBookContent(query);
     ctx.body = {
       code: 200,
-      data: arrays,
+      data: '',
       msg: '',
     };
-
-
   }
 
 }
