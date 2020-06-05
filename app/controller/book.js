@@ -25,6 +25,17 @@ class BookController extends Controller {
       msg: '',
     };
   }
+  // 获取详情
+  async details() {
+    const { ctx, app } = this;
+    const bookId = ctx.query.bookId;
+    const data = await app.mysql.get('books', { bookId });
+    ctx.body = {
+      code: 200,
+      data,
+      msg: '',
+    };
+  }
   // 获取目录
   async directory() {
     const { ctx, app } = this;
