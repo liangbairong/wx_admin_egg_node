@@ -79,14 +79,8 @@ module.exports = appInfo => {
   config.multipart = {
     mode: 'stream',
   };
-  // 定时任务打印日志 修改日志路径
-  // config.customLogger = {
-  //   scheduleLogger: {
-  //     // consoleLevel: 'NONE',
-  //     // file: path.join(appInfo.root, 'logs', appInfo.name, 'egg-schedule.log'),
-  //   },
-  // };
-  // config.serverTimeout = 20000;
+
+
   return {
     ...config,
     ...userConfig,

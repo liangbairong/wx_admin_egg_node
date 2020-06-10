@@ -47,13 +47,6 @@ class AppBootHook {
   async serverDidReady() {
     // http / https server 已启动，开始接受外部请求
     // 此时可以从 app.server 拿到 server 的实例
-
-    // this.app.server.on('timeout', socket => {
-    //   // handle socket timeout
-    //   console.log(socket);
-    // });
-    // console.log('Sssssssssssssssssssss');
-    // this.app.service.msgWebsocket.start();
   }
 }
 

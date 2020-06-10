@@ -5,8 +5,6 @@
 
 'use strict';
 const Service = require('egg').Service;
-const fs = require('fs');
-const path = require('path');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
 const nanoid = require('nanoid');

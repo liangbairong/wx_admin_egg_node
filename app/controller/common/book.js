@@ -1,8 +1,13 @@
 'use strict';
 const Controller = require('egg').Controller;
 class BookController extends Controller {
-
-  // 获取书籍列表
+  /**
+   * 接口描述：获取书籍列表
+   * 请求方式：get
+   * 参数：{
+   *          bookName:''  //书籍名称
+   *       }
+   */
   async list() {
     const { ctx, app } = this;
     const bookName = ctx.query.bookName;
@@ -25,7 +30,13 @@ class BookController extends Controller {
       msg: '',
     };
   }
-  // 获取详情
+  /**
+   * 接口描述：获取详情
+   * 请求方式：get
+   * 参数：{
+   *        bookId:'12121'   //书本id
+   *       }
+   */
   async details() {
     const { ctx, app } = this;
     const bookId = ctx.query.bookId;
@@ -36,7 +47,13 @@ class BookController extends Controller {
       msg: '',
     };
   }
-  // 获取目录
+  /**
+   * 接口描述：获取目录
+   * 请求方式：get
+   * 参数：{
+   *        bookId:'12121' //书本id
+   *       }
+   */
   async directory() {
     const { ctx, app } = this;
     const bookId = ctx.query.bookId;
@@ -50,7 +67,13 @@ class BookController extends Controller {
       msg: '',
     };
   }
-  // 获取内容
+  /**
+   * 接口描述：获取内容
+   * 请求方式：get
+   * 参数：{
+   *        directoryId:'12121'  //目录id
+   *       }
+   */
   async content() {
     const { ctx, app } = this;
     const directoryId = ctx.query.directoryId;
@@ -64,8 +87,13 @@ class BookController extends Controller {
     };
   }
 
-
-  // 删除书籍
+  /**
+   * 接口描述： 删除书籍
+   * 请求方式：post
+   * 参数：{
+   *        bookId:'12121'  //书本id
+   *       }
+   */
   async deleteBook() {
     const { ctx, app } = this;
     const bookId = ctx.request.body.bookId;

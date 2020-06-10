@@ -1,7 +1,5 @@
 'use strict';
 const Controller = require('egg').Controller;
-const fs = require('fs');
-const path = require('path');
 const cheerio = require('cheerio');
 const iconv = require('iconv-lite');
 const nanoid = require('nanoid');
@@ -12,7 +10,7 @@ class ReptileBookController extends Controller {
   async search() {
     const { ctx, app } = this;
 
-    const bookSource = ctx.query.bookSource; // 来源
+    // const bookSource = ctx.query.bookSource; // 来源
     const bookName = ctx.query.bookName;
     if (!bookName) {
       app.throwError(400, '请输入搜索内容');
