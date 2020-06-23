@@ -3,6 +3,7 @@
 
 module.exports = () => {
   const config = exports = {};
+  config.CONST2 = 'dev';
   // config.mysql = {
   //   // 单数据库信息配置
   //   client: {

@@ -1,33 +1,24 @@
 # init
+数据库文件夹
+./db
 
 
-
-## QuickStart
-
-<!-- add docs here for user -->
-
-see [egg docs][egg] for more detail.
-
-### Development
+### 开发
 
 ```bash
 $ npm i
-$ npm run dev
+$ npm run server:dev  //开发环境
+$ npm run server:test  //测试环境
+$ npm run server:prod  //生产环境
 $ open http://localhost:7001/
 ```
 
-### Deploy
+### 服务器部署
 
 ```bash
-$ npm start
-$ npm stop
+$ npm run start:dev  //开发环境
+$ npm run start:test  //测试环境
+$ npm run start:prod  //生产环境
+
+$ npm stop  //停止服务
 ```
-
-### npm scripts
-
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
-
-
-[egg]: https://eggjs.org

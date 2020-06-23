@@ -37,9 +37,12 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "server:dev": "cross-env EGG_SERVER_ENV=local NODE_ENV= egg-bin dev",
+    "server:dev": "cross-env EGG_SERVER_ENV=dev NODE_ENV= egg-bin dev",
     "server:test": "cross-env EGG_SERVER_ENV=test egg-bin dev",
-    "start": "egg-scripts start --daemon --title=egg-server-wx-admin ",
+    "server:prod": "cross-env EGG_SERVER_ENV=prod egg-bin dev",
+    "start:dev": "cross-env EGG_SERVER_ENV=dev egg-scripts start --daemon --title=egg-server-wx-admin ",
+    "start:test": "cross-env EGG_SERVER_ENV=test egg-scripts start --daemon --title=egg-server-wx-admin ",
+    "start:prod": "egg-scripts start --daemon --title=egg-server-wx-admin ",
     "stop": "egg-scripts stop --title=egg-server-wx-admin ",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",

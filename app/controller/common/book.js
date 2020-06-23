@@ -28,6 +28,7 @@ class BookController extends Controller {
       data: list,
       total: z[0].total || 0,
       msg: '',
+      sss: app.config.CONST2,
     };
   }
   /**
